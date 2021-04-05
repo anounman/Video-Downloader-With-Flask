@@ -12,6 +12,10 @@ def index():
 @app.route('/' , methods=['POST'])
 @app.route('/download', methods=["POST", "GET"])
 def link():
+	if request.form["url"] == '':
+		return render_template('index.html')
+	else:
+		pass
 	url = request.form["url"]
 	with youtube_dl.YoutubeDL() as ydl:
 		url = ydl.extract_info(url, download=False)
@@ -22,4 +26,4 @@ def link():
 		return redirect(download_link+"&dl=1")
 
 if __name__ == '__main__':
-    app.run(port= 8080)
+    app.run()
